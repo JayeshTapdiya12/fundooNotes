@@ -1,6 +1,6 @@
 import User from '../models/user.model';
 import bcrypt from "bcrypt";
-
+import jwt from "jsonwebtoken";
 
 export const getData = async () => {
   const data = await User.find();
@@ -8,21 +8,21 @@ export const getData = async () => {
 }
 
 //create new user
-export const newUser = async (body) => {
+export const sign = async (body) => {
 
-  const { name, lname, email, password } = body
   const exist = await User.findOne({ email: body.email })
 
   if (exist) {
-    throw new Error("User already exist ")
+    throw new Error("User already exist ");
   } else {
 
     // using bcrypt
     const saltRounds = 10;
-    const hash_password = await bcrypt.hash(password, saltRounds)
+    const hash_password = await bcrypt.hash(body.password, saltRounds);
 
+    body.password = hash_password
     // creatng a new user
-    const data = await User.create({ name, lname, email, password: hash_password });
+    const data = await User.create(body);
 
     console.log(data)
     return data;
@@ -39,7 +39,9 @@ export const login = async (body) => {
     if
       // (body.password == data.password)
       (bcrypt.compare(body.password, data.password)) {
-      return data
+      const token = jwt.sign({ Username: data.name }, process.env.hidden_key, { expiresIn: 300 });
+      console.log("the token is =========================>", token);
+      return token;
     } else {
       // return "Check your pass and email"
       throw new Error("Invalid  password")

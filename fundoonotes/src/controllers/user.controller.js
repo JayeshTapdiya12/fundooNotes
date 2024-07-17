@@ -13,9 +13,9 @@ export const getData = async (req, res, next) => {
   }
 }
 
-export const newUser = async (req, res, next) => {
+export const sign = async (req, res, next) => {
   try {
-    const data = await UserService.newUser(req.body);
+    const data = await UserService.sign(req.body);
     console.log("database details", data)
     res.status(HttpStatus.CREATED).json({
       code: HttpStatus.CREATED,

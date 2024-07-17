@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('', userController.getData)
 
 //route to create a new user
-router.post('/sign', newUserValidator, userController.newUser);
+router.post('/sign', newUserValidator, userController.sign);
 
 router.post('/login', userController.login)
 
