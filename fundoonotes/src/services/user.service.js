@@ -39,7 +39,7 @@ export const login = async (body) => {
     if
       // (body.password == data.password)
       (bcrypt.compare(body.password, data.password)) {
-      const token = jwt.sign({ Username: data.name }, process.env.hidden_key, { expiresIn: 300 });
+      const token = jwt.sign({ Username: data.name, Email: data.email, userId: data._id }, process.env.hidden_key);
       console.log("the token is =========================>", token);
       return token;
     } else {

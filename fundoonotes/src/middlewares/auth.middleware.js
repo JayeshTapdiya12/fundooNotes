@@ -1,5 +1,6 @@
 import HttpStatus from 'http-status-codes';
 import jwt from 'jsonwebtoken';
+import { Http } from 'winston/lib/winston/transports';
 
 /**
  * Middleware to authenticate if user has a valid Authorization token
@@ -19,11 +20,17 @@ export const userAuth = async (req, res, next) => {
       };
     bearerToken = bearerToken.split(' ')[1];
 
-    const { user } = await jwt.verify(bearerToken, 'your-secret-key');
-    res.locals.user = user;
-    res.locals.token = bearerToken;
+    const user = await jwt.verify(bearerToken, process.env.hidden_key);
+    // res.locals.user = user;
+    // res.locals.token = bearerToken;
+    console.log("decodeed data after auth! ============>", user)
     next();
   } catch (error) {
-    next(error);
+    // next(error);
+
+    res.status(HttpStatus.UNAUTHORIZED).json({
+      code: HttpStatus.UNAUTHORIZED,
+      message: `${error}`
+    })
   }
 };
