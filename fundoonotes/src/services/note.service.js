@@ -36,7 +36,7 @@ export const noteFind = async (id) => {
 // update the note by id
 
 export const noteUpdate = async (id, body) => {
-    const data = await Note.findByIdAndUpdate(id, body, {
+    const data = await Note.findByIdAndUpdate({ _id: id }, body, {
         new: true
     });
     return data
@@ -48,7 +48,7 @@ export const noteUpdate = async (id, body) => {
 
 
 export const deleteNote = async (id) => {
-    const data = await Note.findOneAndDelete(id)
+    const data = await Note.findByIdAndDelete({ _id: id })
     return " ";
 };
 
