@@ -1,6 +1,8 @@
 import express from 'express';
 import * as NoteController from "../controllers/note.controllers"
+import { noteValidator } from '../validators/note.validator'
 import { userAuth } from '../middlewares/auth.middleware'
+
 const router = express.Router();
 
 // getting all note
@@ -10,7 +12,7 @@ router.get('', userAuth, NoteController.getAllNote);
 
 //adding note
 
-router.post('', userAuth, NoteController.addNote);
+router.post('', noteValidator, userAuth, NoteController.addNote);
 
 
 
@@ -22,7 +24,7 @@ router.get('/:_id', userAuth, NoteController.noteFind);
 
 //update data
 
-router.put('/:_id', userAuth, NoteController.noteUpdate);
+router.put('/:_id', noteValidator, userAuth, NoteController.noteUpdate);
 
 
 
