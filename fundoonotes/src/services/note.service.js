@@ -1,12 +1,19 @@
-import { noteDelete } from "../controllers/note.controllers";
+// import { noteDelete } from "../controllers/note.controllers";
 import Note from "../models/note.model"
 
 
 
 // getting all the notes
-export const getAllNote = async () => {
-    const data = await Note.find();
-    return data
+export const getAllNote = async (id) => {
+    const data = await Note.find({
+        createdBy: id
+    });
+    // console.log("data from service ========>", data)
+    if (data != null) {
+        return data
+    } else {
+        throw new Error("No Noted been Created till date")
+    }
 };
 
 
@@ -21,8 +28,15 @@ export const addNote = async (body) => {
 
 // get the note only by using id
 
-export const noteFind = async (id) => {
-    const data = await Note.findById(id);
+export const noteFind = async (creId, id) => {
+    console.log(creId)
+
+
+    const data = await Note.findOne({
+        createdBy: creId,
+        _id: id
+    });
+
     if (data != null) {
         return data;
     } else {
@@ -36,7 +50,7 @@ export const noteFind = async (id) => {
 // update the note by id
 
 export const noteUpdate = async (id, body) => {
-    const data = await Note.findByIdAndUpdate({ _id: id }, body, {
+    const data = await Note.findOneAndUpdate({ createdBy: body.createdBy, _id: id }, body, {
         new: true
     });
     return data
@@ -47,8 +61,8 @@ export const noteUpdate = async (id, body) => {
 //  delete the note by id
 
 
-export const deleteNote = async (id) => {
-    const data = await Note.findByIdAndDelete({ _id: id })
+export const deleteNote = async (creId, id) => {
+    const data = await Note.findOneAndDelete({ createdBy: creId, _id: id })
     return " ";
 };
 
