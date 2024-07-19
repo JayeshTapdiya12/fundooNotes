@@ -24,7 +24,7 @@ export const sign = async (body) => {
     // creatng a new user
     const data = await User.create(body);
 
-    console.log(data)
+    // console.log(data)
     return data;
   }
 };
@@ -40,7 +40,7 @@ export const login = async (body) => {
       // (body.password == data.password)
       (bcrypt.compare(body.password, data.password)) {
       const token = jwt.sign({ Username: data.name, Email: data.email, userId: data._id }, process.env.hidden_key);
-      console.log("the token is =========================>", token);
+      // console.log("the token is =========================>", token);
       return token;
     } else {
       // return "Check your pass and email"
