@@ -13,7 +13,10 @@ export const getAllNote = async (req, res, next) => {
             message: "All the Data Fetch Successfully!!!"
         })
     } catch (error) {
-        next(error)
+        res.status(HttpStatus.BAD_REQUEST).json({
+            code: HttpStatus.BAD_REQUEST,
+            message: ` ${error}`
+        });
     }
 };
 
@@ -30,7 +33,10 @@ export const addNote = async (req, res, next) => {
             message: "The note successfully created "
         })
     } catch (error) {
-        next(error)
+        res.status(HttpStatus.BAD_REQUEST).json({
+            code: HttpStatus.BAD_REQUEST,
+            message: ` ${error}`
+        });
     }
 };
 
@@ -65,7 +71,10 @@ export const noteUpdate = async (req, res, next) => {
             message: "Updated the note"
         })
     } catch (error) {
-        next(error)
+        res.status(HttpStatus.BAD_REQUEST).json({
+            code: HttpStatus.BAD_REQUEST,
+            message: ` ${error}`
+        });
     }
 };
 
@@ -82,6 +91,9 @@ export const deleteNote = async (req, res, next) => {
             message: "Successfully delelted the Note!!"
         })
     } catch (error) {
-        next(error);
+        res.status(HttpStatus.BAD_REQUEST).json({
+            code: HttpStatus.BAD_REQUEST,
+            message: ` ${error}`
+        });
     }
 }
