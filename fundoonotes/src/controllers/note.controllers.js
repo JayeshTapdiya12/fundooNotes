@@ -5,14 +5,17 @@ import * as NoteService from "../services/note.service";
 // get all the notes
 
 export const getAllNote = async (req, res, next) => {
+
     try {
-        const data = await NoteService.getAllNote();
+        const data = await NoteService.getAllNote(req.body.createdBy);
         res.status(HttpStatus.OK).json({
             code: HttpStatus.OK,
             data: data,
             message: "All the Data Fetch Successfully!!!"
         })
+        // console.log("data form controlerr===========>", data)
     } catch (error) {
+        // console.log("error in controller================>", error)
         res.status(HttpStatus.BAD_REQUEST).json({
             code: HttpStatus.BAD_REQUEST,
             message: ` ${error}`
@@ -26,6 +29,8 @@ export const getAllNote = async (req, res, next) => {
 
 export const addNote = async (req, res, next) => {
     try {
+        console.log(req.body)
+
         const data = await NoteService.addNote(req.body);
         res.status(HttpStatus.CREATED).json({
             code: HttpStatus.CREATED,
@@ -45,7 +50,7 @@ export const addNote = async (req, res, next) => {
 
 export const noteFind = async (req, res, next) => {
     try {
-        const data = await NoteService.noteFind(req.params._id);
+        const data = await NoteService.noteFind(req.body.createdBy, req.params._id);
         res.status(HttpStatus.OK).json({
             code: HttpStatus.OK,
             data: data,
@@ -84,7 +89,7 @@ export const noteUpdate = async (req, res, next) => {
 
 export const deleteNote = async (req, res, next) => {
     try {
-        const data = await NoteService.deleteNote(req.params._id);
+        const data = await NoteService.deleteNote(req.body.createdBy, req.params._id);
         res.status(HttpStatus.OK).json({
             code: HttpStatus.OK,
             data: [],
