@@ -30,8 +30,6 @@ export const addNote = async (body) => {
 
 export const noteFind = async (creId, id) => {
     console.log(creId)
-
-
     const data = await Note.findOne({
         createdBy: creId,
         _id: id

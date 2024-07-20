@@ -93,7 +93,7 @@ export const deleteNote = async (req, res, next) => {
         res.status(HttpStatus.OK).json({
             code: HttpStatus.OK,
             data: [],
-            message: "Successfully delelted the Note!!"
+            message: "Successfully deleted the Note!!"
         })
     } catch (error) {
         res.status(HttpStatus.BAD_REQUEST).json({
