@@ -66,21 +66,7 @@ export const noteArchive = async (req, res, next) => {
 
 //  making note unarchived
 
-export const unarchiveNote = async (req, res, next) => {
-    try {
-        const data = await NoteService.unarchiveNote(req.body, req.params._id)
-        res.status(HttpStatus.OK).json({
-            code: HttpStatus.OK,
-            data: data,
-            message: "Successfully UnArchived!"
-        })
-    } catch (error) {
-        res.status(HttpStatus.BAD_REQUEST).json({
-            code: HttpStatus.BAD_REQUEST,
-            message: ` ${error}`
-        });
-    }
-}
+
 
 
 // get the note only by using id
@@ -159,22 +145,7 @@ export const trash = async (req, res, next) => {
     }
 }
 
-//  un trash
-export const untrash = async (req, res, next) => {
-    try {
-        const data = await NoteService.untrash(req.body, req.params._id)
-        res.status(HttpStatus.OK).json({
-            code: HttpStatus.OK,
-            data: data,
-            message: "Successfully UnArchived!"
-        })
-    } catch (error) {
-        res.status(HttpStatus.BAD_REQUEST).json({
-            code: HttpStatus.BAD_REQUEST,
-            message: ` ${error}`
-        });
-    }
-}
+
 
 
 //  update color
