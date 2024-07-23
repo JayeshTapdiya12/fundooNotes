@@ -1,0 +1,131 @@
+
+import Note from "../models/note.model"
+
+
+// getting all the notes
+export const getAllNote = async (id) => {
+    const data = await Note.find({
+        createdBy: id
+    });
+    // console.log("data from service ========>", data)
+    if (data != null) {
+        return data
+    } else {
+        throw new Error("No Noted been Created till date")
+    }
+};
+
+
+//  creating new Note
+
+export const addNote = async (body) => {
+    const data = await Note.create(body);
+    console.log(data)
+    return data;
+};
+
+
+// get the note only by using id
+
+export const noteFind = async (creId, id) => {
+    console.log(creId)
+    const data = await Note.findOne({
+        createdBy: creId,
+        _id: id
+    });
+
+    if (data != null) {
+        return data;
+    } else {
+        throw new Error("Id is Not Correct or Note not exist")
+    }
+};
+
+
+
+// update the note by id
+
+export const noteUpdate = async (id, body) => {
+    const data = await Note.findOneAndUpdate({ createdBy: body.createdBy, _id: id }, body, {
+        new: true
+    });
+    return data
+};
+
+
+
+//  delete the note by id
+
+
+export const deleteNote = async (creId, id) => {
+    const data = await Note.findOneAndDelete({ createdBy: creId, _id: id })
+    return " ";
+};
+
+
+// archive
+
+export const noteArchive = async (body, id) => {
+    try {
+        const data = await Note.findOne({
+            createdBy: body.createdBy,
+            _id: id
+        });
+        if (data.isArchived === false) {
+            console.log("inside false");
+            data.isArchived = true;
+            await data.save();
+            console.log("ending the false")
+
+            return data;
+        }
+        else if (data.isArchived === true) {
+            console.log("inside true")
+            data.isArchived = false;
+            await data.save();
+            return data;
+        } else {
+            throw new Error('Data not found or invalid state');
+        }
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+
+//  trash
+export const trash = async (body, id) => {
+    try {
+        const data = await Note.findOne({
+            createdBy: body.createdBy,
+            _id: id
+        });
+        if (data.isDeleted === false && data.isArchived === false) {
+            data.isDeleted = true;
+            await data.save()
+            return data
+        } else if (data.isDeleted === true) {
+            data.isDeleted = false;
+            await data.save()
+            return data
+
+        }
+        else {
+            throw new Error('the Data is Archived ');
+        }
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+export const noteColor = async (body, id) => {
+    try {
+        const data = await Note.findOneAndUpdate({ createdBy: body.createdBy, _id: id }, body, {
+            new: true
+        });
+        return data;
+    } catch (error) {
+        throw new Error(error)
+    }
+
+}
