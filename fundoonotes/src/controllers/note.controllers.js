@@ -175,3 +175,22 @@ export const untrash = async (req, res, next) => {
         });
     }
 }
+
+
+//  update color
+
+export const noteColor = async (req, res, next) => {
+    try {
+        const data = await NoteService.noteColor(req.body, req.params._id)
+        res.status(HttpStatus.OK).json({
+            code: HttpStatus.OK,
+            data: data,
+            message: "Successfully changed color!"
+        })
+    } catch (error) {
+        res.status(HttpStatus.BAD_REQUEST).json({
+            code: HttpStatus.BAD_REQUEST,
+            message: ` ${error}`
+        });
+    }
+}
