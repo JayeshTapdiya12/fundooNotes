@@ -28,7 +28,7 @@ export const userAuth = async (req, res, next) => {
     console.log(user.userId)
     // res.locals.user = user;
     // res.locals.token = bearerToken;
-    console.log("decodeed data after auth! ============>", user)
+    // console.log("decodeed data after auth! ============>", user)
     next();
   } catch (error) {
     // next(error);
