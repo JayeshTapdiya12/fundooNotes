@@ -37,7 +37,7 @@ router.put('/:_id', noteValidator, userAuth, NoteController.noteUpdate);
 
 // updateding color
 
-router.put('/:_id/color', noteValidator, userAuth, NoteController.noteColor)
+router.patch('/:_id/color', noteValidator, userAuth, NoteController.noteColor)
 
 //delete data
 

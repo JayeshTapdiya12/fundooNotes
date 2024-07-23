@@ -71,22 +71,12 @@ export const noteArchive = async (body, id) => {
             createdBy: body.createdBy,
             _id: id
         });
-        if (data.isArchived === false) {
-            console.log("inside false");
-            data.isArchived = true;
-            await data.save();
-            console.log("ending the false")
-
-            return data;
+        if (!data) {
+            throw new Error('Note not found');
         }
-        else if (data.isArchived === true) {
-            console.log("inside true")
-            data.isArchived = false;
-            await data.save();
-            return data;
-        } else {
-            throw new Error('Data not found or invalid state');
-        }
+        data.isArchived = !data.isArchived;
+        await data.save();
+        return data;
     } catch (error) {
         throw new Error(error)
     }
@@ -100,19 +90,13 @@ export const trash = async (body, id) => {
             createdBy: body.createdBy,
             _id: id
         });
-        if (data.isDeleted === false && data.isArchived === false) {
-            data.isDeleted = true;
-            await data.save()
-            return data
-        } else if (data.isDeleted === true) {
-            data.isDeleted = false;
-            await data.save()
-            return data
+        if (!data) {
+            throw new Error('Note not found');
+        }
+        data.isTrash = !data.isTrash;
+        await data.save();
+        return data;
 
-        }
-        else {
-            throw new Error('the Data is Archived ');
-        }
     } catch (error) {
         throw new Error(error)
     }
