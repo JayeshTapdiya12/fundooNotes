@@ -45,6 +45,43 @@ export const addNote = async (req, res, next) => {
     }
 };
 
+//making note archive
+
+export const noteArchive = async (req, res, next) => {
+    try {
+        // console.log(req.body)
+        const data = await NoteService.noteArchive(req.body, req.params._id)
+        res.status(HttpStatus.OK).json({
+            code: HttpStatus.OK,
+            data: data,
+            message: "Successfully Archived!"
+        })
+    } catch (error) {
+        res.status(HttpStatus.BAD_REQUEST).json({
+            code: HttpStatus.BAD_REQUEST,
+            message: ` ${error}`
+        });
+    }
+}
+
+//  making note unarchived
+
+export const unarchiveNote = async (req, res, next) => {
+    try {
+        const data = await NoteService.unarchiveNote(req.body, req.params._id)
+        res.status(HttpStatus.OK).json({
+            code: HttpStatus.OK,
+            data: data,
+            message: "Successfully UnArchived!"
+        })
+    } catch (error) {
+        res.status(HttpStatus.BAD_REQUEST).json({
+            code: HttpStatus.BAD_REQUEST,
+            message: ` ${error}`
+        });
+    }
+}
+
 
 // get the note only by using id
 
@@ -94,6 +131,42 @@ export const deleteNote = async (req, res, next) => {
             code: HttpStatus.OK,
             data: [],
             message: "Successfully deleted the Note!!"
+        })
+    } catch (error) {
+        res.status(HttpStatus.BAD_REQUEST).json({
+            code: HttpStatus.BAD_REQUEST,
+            message: ` ${error}`
+        });
+    }
+}
+
+
+//  trash
+export const trash = async (req, res, next) => {
+    try {
+        // console.log(req.body)
+        const data = await NoteService.trash(req.body, req.params._id)
+        res.status(HttpStatus.OK).json({
+            code: HttpStatus.OK,
+            data: data,
+            message: "Successfully Archived!"
+        })
+    } catch (error) {
+        res.status(HttpStatus.BAD_REQUEST).json({
+            code: HttpStatus.BAD_REQUEST,
+            message: ` ${error}`
+        });
+    }
+}
+
+//  un trash
+export const untrash = async (req, res, next) => {
+    try {
+        const data = await NoteService.untrash(req.body, req.params._id)
+        res.status(HttpStatus.OK).json({
+            code: HttpStatus.OK,
+            data: data,
+            message: "Successfully UnArchived!"
         })
     } catch (error) {
         res.status(HttpStatus.BAD_REQUEST).json({
