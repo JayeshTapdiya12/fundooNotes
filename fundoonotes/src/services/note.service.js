@@ -118,3 +118,14 @@ export const trash = async (body, id) => {
     }
 }
 
+export const noteColor = async (body, id) => {
+    try {
+        const data = await Note.findOneAndUpdate({ createdBy: body.createdBy, _id: id }, body, {
+            new: true
+        });
+        return data;
+    } catch (error) {
+        throw new Error(error)
+    }
+
+}
