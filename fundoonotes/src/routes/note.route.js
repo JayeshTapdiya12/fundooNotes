@@ -18,8 +18,10 @@ router.post('', noteValidator, userAuth, NoteController.addNote);
 
 router.post('/:_id/archived', userAuth, NoteController.noteArchive)
 
-// // making for trash
+// making for trash
 router.post('/:_id/trash', userAuth, NoteController.trash)
+
+
 
 
 //get note by id
@@ -31,6 +33,11 @@ router.get('/:_id', userAuth, NoteController.noteFind);
 
 router.put('/:_id', noteValidator, userAuth, NoteController.noteUpdate);
 
+
+
+// updateding color
+
+router.put('/:_id/color', noteValidator, userAuth, NoteController.noteColor)
 
 //delete data
 
