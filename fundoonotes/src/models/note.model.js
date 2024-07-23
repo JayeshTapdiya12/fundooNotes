@@ -14,9 +14,11 @@ const userSchema = new Schema({
 
     },
     isArchived: {
+        type: Boolean,
         default: false
     },
     isDeleted: {
+        type: Boolean,
         default: false
     },
     createdBy: {
