@@ -16,7 +16,7 @@ export const noteValidator = (req, res, next) => {
             message: `${error}`
         });
     } else {
-        console.log("heloo from note validator else ===========>", value)
+        // console.log("heloo from note validator else ===========>", value)
 
         // res.status(HttpStatus.OK).json({
         //     code: HttpStatus.OK
