@@ -74,6 +74,7 @@ export const noteArchive = async (body, id) => {
         if (!data) {
             throw new Error('Note not found');
         }
+
         data.isArchived = !data.isArchived;
         await data.save();
         return data;
