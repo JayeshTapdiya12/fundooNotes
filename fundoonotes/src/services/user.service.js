@@ -35,19 +35,46 @@ export const login = async (body) => {
 
   const data = await User.findOne({ email: body.email });
 
-  if (data != null) {
-    if
-      // (body.password == data.password)
-      (bcrypt.compare(body.password, data.password)) {
+  if (data == null) {
+    throw new Error("Invalid email id")
+  } else {
+    const isPasswordValid = await bcrypt.compare(body.password, data.password);
+    if (isPasswordValid) {
       const token = jwt.sign({ Username: data.name, Email: data.email, userId: data._id }, process.env.hidden_key);
       // console.log("the token is =========================>", token);
       return token;
     } else {
-      // return "Check your pass and email"
       throw new Error("Invalid  password")
     }
+
+  }
+
+}
+
+
+export const resetPassword = async (body) => {
+
+  const data = await User.findOne({ email: body.Email });
+  const saltRounds = 10;
+  const hash_password = await bcrypt.hash(body.password, saltRounds);
+
+  data.password = hash_password;
+  await data.save()
+  return data
+}
+
+
+export const forgetPassword = async (body) => {
+  console.log(body.email)
+  const data = await User.findOne({ email: body.email })
+  console.log("outside function")
+  if (data != null) {
+    console.log("inside function")
+    const token = jwt.sign({ Username: data.name, Email: data.email, userId: data._id }, process.env.hidden_key);
+    console.log(token)
+    return token;
   } else {
-    throw new Error("Invalid email id")
+    throw new Error("id NOte find")
   }
 
 }
