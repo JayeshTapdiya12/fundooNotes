@@ -25,14 +25,12 @@ export const userAuth = async (req, res, next) => {
 
     const user = await jwt.verify(bearerToken, process.env.hidden_key);
     req.body.createdBy = user.userId
+    req.body.Email = user.Email
     console.log(user.userId)
-    // res.locals.user = user;
-    // res.locals.token = bearerToken;
-    // console.log("decodeed data after auth! ============>", user)
+
     next();
   } catch (error) {
-    // next(error);
-    // console.log("error from userrr auth =================>", error)
+
     res.status(HttpStatus.UNAUTHORIZED).json({
       code: HttpStatus.UNAUTHORIZED,
       message: `${error}`
