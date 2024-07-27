@@ -54,6 +54,24 @@ export const login = async (req, res, next) => {
   }
 }
 
+export const forgetPassword = async (req, res) => {
+  try {
+    console.log(req.body.email)
+    const data = await UserService.forgetPassword(req.body);
+    res.status(HttpStatus.ACCEPTED).json({
+      code: HttpStatus.ACCEPTED,
+      data: data,
+      message: "Token genrated"
+    })
+    console.log(data)
+  } catch (error) {
+    res.status(HttpStatus.BAD_GATEWAY).json({
+      code: HttpStatus.BAD_GATEWAY,
+      message: `${error}`
+    })
+  }
+}
+
 export const resetPassword = async (req, res, next) => {
   try {
     const data = await UserService.resetPassword(req.body);
@@ -71,20 +89,3 @@ export const resetPassword = async (req, res, next) => {
   }
 }
 
-export const forgetPassword = async (req, res, next) => {
-  try {
-    console.log(req.body.email)
-    const data = await UserService.forgetPassword(req.body);
-    res.status(HttpStatus.ACCEPTED).json({
-      code: HttpStatus.ACCEPTED,
-      data: data,
-      message: "Token genrated"
-    })
-    console.log(data)
-  } catch (error) {
-    res.status(HttpStatus.BAD_GATEWAY).json({
-      code: HttpStatus.BAD_GATEWAY,
-      message: `${error}`
-    })
-  }
-}
