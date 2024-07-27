@@ -1,6 +1,7 @@
 import User from '../models/user.model';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { mailSender } from '../utils/emailhelper';
 
 export const getData = async () => {
   const data = await User.find();
@@ -51,6 +52,21 @@ export const login = async (body) => {
 
 }
 
+export const forgetPassword = async (body) => {
+  console.log(body.email)
+  const data = await User.findOne({ email: body.email })
+  console.log("outside function")
+  if (data != null) {
+    console.log("inside function")
+    const token = jwt.sign({ Username: data.name, Email: data.email, userId: data._id }, process.env.hidden_key);
+    await mailSender(data.email, token)
+    console.log(token)
+    return token;
+  } else {
+    throw new Error("id NOte find")
+  }
+
+}
 
 export const resetPassword = async (body) => {
 
@@ -64,17 +80,3 @@ export const resetPassword = async (body) => {
 }
 
 
-export const forgetPassword = async (body) => {
-  console.log(body.email)
-  const data = await User.findOne({ email: body.email })
-  console.log("outside function")
-  if (data != null) {
-    console.log("inside function")
-    const token = jwt.sign({ Username: data.name, Email: data.email, userId: data._id }, process.env.hidden_key);
-    console.log(token)
-    return token;
-  } else {
-    throw new Error("id NOte find")
-  }
-
-}
