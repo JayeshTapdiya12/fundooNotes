@@ -4,9 +4,10 @@ const nodemailer = require('nodemailer');
 const html = `
 <h1>Hello World</h1>
 <p>Nodemailer uses</p>
+your token is 
 `;
 
-async function main() {
+export async function mailSender(mail, token) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -17,12 +18,13 @@ async function main() {
         logger: true
     });
 
+
     try {
         const info = await transporter.sendMail({
             from: 'jayeshrakesh12@gmail.com',
-            to: 'jayesh121220@gmail.com',
-            subject: 'Testing, testing 1 2 3',
-            html: html,
+            to: mail,
+            subject: 'forget password Link',
+            html: `<h1>Hello,<br><br>Click on given link to reset your password!</h1><br><h1>Link:><a href="http://localhost:${process.env.APP_PORT}/api/${process.env.api_version}/users/forget_password">click here</a></h1>`
         });
 
         console.log("Message sent: " + info.messageId);
@@ -30,5 +32,3 @@ async function main() {
         console.log("Error sending email: ", error);
     }
 }
-
-main().catch(e => console.log(e));
