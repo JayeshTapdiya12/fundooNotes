@@ -2,11 +2,11 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Google Keep",
-    "description": "This is the replica of google keep.User can register and login, user can do request for forgot password and he can reset password using that shared credentionals. User can login and perform note CRUD."
+    "description": "This is the replica of google keep."
   },
   "servers": [
     {
-      "url": "http://localhost:4000/api/v1"
+      "url": "http://localhost:3000/api/v1"
     }
   ],
   "tags": [
@@ -16,7 +16,7 @@
     }
   ],
   "paths": {
-    "/users": {
+    "/users/sign": {
       "post": {
         "tags": ["User"],
         "description": "Register user...",
@@ -38,10 +38,6 @@
           },
           "400": {
             "description": "Bad Request",
-            "content": {}
-          },
-          "500": {
-            "description": "Internal server error",
             "content": {}
           }
         },
@@ -75,16 +71,12 @@
           "400": {
             "description": "Bad Request",
             "content": {}
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {}
           }
         },
         "x-codegen-request-body-name": "login user"
       }
     },
-    "/users/forgotpassword": {
+    "/users/forget_password": {
       "post": {
         "tags": ["User"],
         "summary": "Forget password",
@@ -107,16 +99,12 @@
           "400": {
             "description": "Bad Request",
             "content": {}
-          },
-          "500": {
-            "description": "could not send mail",
-            "content": {}
           }
         },
         "x-codegen-request-body-name": "Forget Password"
       }
     },
-    "/users/resetPassword": {
+    "/users/reset_password": {
       "post": {
         "tags": ["User"],
         "summary": "reset password for User",
@@ -139,10 +127,6 @@
           "400": {
             "description": "Bad Request",
             "content": {}
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {}
           }
         },
         "security": [
@@ -164,10 +148,6 @@
           },
           "400": {
             "description": "Bad Request",
-            "content": {}
-          },
-          "500": {
-            "description": "Internal server error",
             "content": {}
           }
         },
@@ -198,10 +178,6 @@
           },
           "400": {
             "description": "Bad Request",
-            "content": {}
-          },
-          "500": {
-            "description": "Internal server error",
             "content": {}
           }
         },
@@ -234,10 +210,6 @@
           },
           "400": {
             "description": "Bad Request",
-            "content": {}
-          },
-          "500": {
-            "description": "Internal server error",
             "content": {}
           }
         },
@@ -279,10 +251,6 @@
           "400": {
             "description": "Bad Request",
             "content": {}
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {}
           }
         },
         "security": [
@@ -313,10 +281,6 @@
           "400": {
             "description": "Bad Request",
             "content": {}
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {}
           }
         },
         "security": [
@@ -326,7 +290,7 @@
         ]
       }
     },
-    "/notes/isArchived/{_id}": {
+    "/notes/{_id}/isarchived": {
       "post": {
         "tags": ["Notes"],
         "summary": "Archieve a note for User",
@@ -348,10 +312,6 @@
           "400": {
             "description": "Bad Request",
             "content": {}
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {}
           }
         },
         "security": [
@@ -361,7 +321,7 @@
         ]
       }
     },
-    "/notes/isTrashed/{_id}": {
+    "/notes/{_id}/istrash": {
       "post": {
         "tags": ["Notes"],
         "summary": "Send a note to trash",
@@ -383,9 +343,36 @@
           "400": {
             "description": "Bad Request",
             "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/notes/{_id}/color": {
+      "patch": {
+        "tags": ["Notes"],
+        "summary": "Send a note to color",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "note  color change succesfully",
+            "content": {}
           },
-          "500": {
-            "description": "Internal server error",
+          "400": {
+            "description": "Bad Request",
             "content": {}
           }
         },
@@ -402,10 +389,10 @@
       "User": {
         "type": "object",
         "properties": {
-          "fName": {
+          "name": {
             "type": "string"
           },
-          "lName": {
+          "lname": {
             "type": "string"
           },
           "email": {

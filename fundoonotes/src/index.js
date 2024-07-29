@@ -15,6 +15,8 @@ import {
 import logger, { logStream } from './config/logger';
 
 import morgan from 'morgan';
+const swaggerUi = require('swagger-ui-express');
+import Swagger from './swagger/openapi.json'
 
 const app = express();
 const host = process.env.APP_HOST;
@@ -26,7 +28,7 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan('combined', { stream: logStream }));
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(Swagger));
 database();
 
 app.use(`/api/${api_version}`, routes());
