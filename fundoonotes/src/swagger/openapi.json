@@ -137,13 +137,13 @@
         "x-codegen-request-body-name": "new password"
       }
     },
-    "/notes": {
+    "/note": {
       "get": {
         "tags": ["Notes"],
         "summary": "Get all Notes",
         "responses": {
           "200": {
-            "description": "notes fetched successfully",
+            "description": "note fetched successfully",
             "content": {}
           },
           "400": {
@@ -189,7 +189,7 @@
         "x-codegen-request-body-name": "create note"
       }
     },
-    "/notes/{_id}": {
+    "/note/{_id}": {
       "get": {
         "tags": ["Notes"],
         "summary": "Get a single note by it's id",
@@ -290,7 +290,7 @@
         ]
       }
     },
-    "/notes/{_id}/isarchived": {
+    "/note/{_id}/isarchived": {
       "post": {
         "tags": ["Notes"],
         "summary": "Archieve a note for User",
@@ -321,7 +321,7 @@
         ]
       }
     },
-    "/notes/{_id}/istrash": {
+    "/note/{_id}/istrash": {
       "post": {
         "tags": ["Notes"],
         "summary": "Send a note to trash",
@@ -352,7 +352,7 @@
         ]
       }
     },
-    "/notes/{_id}/color": {
+    "/note/{_id}/color": {
       "patch": {
         "tags": ["Notes"],
         "summary": "Send a note to color",
