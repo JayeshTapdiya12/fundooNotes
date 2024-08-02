@@ -2,7 +2,7 @@ import Joi from "@hapi/joi";
 import HttpStatus from 'http-status-codes';
 
 export const noteValidator = (req, res, next) => {
-
+    console.log("res==================>in validator+++++", res.body)
     const schema = Joi.object({
         title: Joi.string().min(0).max(100).optional(),
         description: Joi.string().min(0).max(100).optional(),
@@ -12,7 +12,7 @@ export const noteValidator = (req, res, next) => {
     const { error, value } = schema.validate(req.body)
     if (error) {
         res.status(HttpStatus.BAD_REQUEST).json({
-            code: HttpStatus.BAD_GATEWAY,
+            code: HttpStatus.BAD_REQUEST,
             message: `${error}`
         });
     } else {
@@ -21,6 +21,7 @@ export const noteValidator = (req, res, next) => {
         // res.status(HttpStatus.OK).json({
         //     code: HttpStatus.OK
         // })
+
         next();
 
     }

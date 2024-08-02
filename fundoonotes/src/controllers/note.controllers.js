@@ -92,9 +92,10 @@ export const noteFind = async (req, res, next) => {
 
 export const noteUpdate = async (req, res, next) => {
     try {
+        console.log("req.params,req.body", req.params, req.body)
         const data = await NoteService.noteUpdate(req.params._id, req.body);
-        res.status(HttpStatus.ACCEPTED).json({
-            code: HttpStatus.ACCEPTED,
+        res.status(HttpStatus.OK).json({
+            code: HttpStatus.OK,
             data: data,
             message: "Updated the note"
         })
