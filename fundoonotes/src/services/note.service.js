@@ -1,17 +1,20 @@
-
 import Note from "../models/note.model"
-
+import { client } from "../config/redis";
 
 // getting all the notes
 export const getAllNote = async (id) => {
+    console.log("object")
+
     const data = await Note.find({
         createdBy: id
     });
-    // console.log("data from service ========>", data)
+    const cacheKey = `user:${id}`;
     if (data != null) {
-        return data
+        await client.set(cacheKey, JSON.stringify(data));
+        // return data;
     } else {
         throw new Error("No Noted been Created till date")
+
     }
 };
 
