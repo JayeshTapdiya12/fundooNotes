@@ -2,6 +2,7 @@ import User from '../models/user.model';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { mailSender } from '../utils/emailhelper';
+import { sendMessage } from '../utils/producer';
 
 export const getData = async () => {
   const data = await User.find();
@@ -26,6 +27,7 @@ export const sign = async (body) => {
     const data = await User.create(body);
 
     // console.log(data)
+    await sendMessage(data)
     return data;
   }
 };
