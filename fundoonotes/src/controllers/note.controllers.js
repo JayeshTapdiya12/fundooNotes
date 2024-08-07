@@ -5,7 +5,7 @@ import * as NoteService from "../services/note.service";
 // get all the notes
 
 export const getAllNote = async (req, res, next) => {
-
+    console.log("hello from controller")
     try {
         const data = await NoteService.getAllNote(req.body.createdBy);
         res.status(HttpStatus.OK).json({
