@@ -1,17 +1,18 @@
+import { optional } from "@hapi/joi";
 import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
     title: {
         type: String,
-        required: true
+        required: false
     },
     description: {
         type: String,
-        required: true
+        required: false
     },
     color: {
         type: String,
-
+        // optional
     },
     isArchived: {
         type: Boolean,

@@ -9,9 +9,10 @@ export const getAllNote = async (id) => {
         createdBy: id
     });
     const cacheKey = `user:${id}`;
+
     if (data != null) {
         await client.set(cacheKey, JSON.stringify(data));
-        // return data;
+        return data;
     } else {
         throw new Error("No Noted been Created till date")
 
@@ -97,7 +98,7 @@ export const trash = async (body, id) => {
         if (!data) {
             throw new Error('Note not found');
         }
-        data.isTrash = !data.isTrash;
+        data.isDeleted = !data.isDeleted;
         await data.save();
         return data;
 
