@@ -23,7 +23,7 @@ router.post('/:_id/trash', userAuth(process.env.hidden_key), NoteController.tras
 router.get('/:_id', userAuth(process.env.hidden_key), NoteController.noteFind);
 
 //update data
-router.put('/:_id', noteValidator, userAuth(process.env.hidden_key), NoteController.noteUpdate);
+router.put('/:_id', userAuth(process.env.hidden_key), NoteController.noteUpdate);
 
 // updateding color
 router.patch('/:_id/color', noteValidator, userAuth(process.env.hidden_key), NoteController.noteColor)
