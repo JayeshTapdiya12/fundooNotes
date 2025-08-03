@@ -5,8 +5,8 @@
   "main": "build/index.js",
   "scripts": {
     "dev": "nodemon --exec babel-node src/index.js",
-    "build": "rimraf build && babel src --out-dir build",
-    "prestart": "rimraf build && babel src --out-dir build",
+    "build": "rm -rf build && babel src --out-dir build",
+    "prestart": "rm -rf build && babel src --out-dir build",
     "start": "node build/index.js",
     "test": "cross-env NODE_ENV=test mocha --exit --recursive --require @babel/register --timeout=5000 tests/**/*.js",
     "test:coverage": "cross-env NODE_ENV=test nyc --require @babel/register --reporter lcov --reporter text mocha --exit --recursive --timeout=5000 tests/**/*.js",
@@ -35,8 +35,7 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0",
-    "winston-daily-rotate-file": "^5.0.0",
-    "rimraf": "^6.0.1"
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.26.4",
@@ -56,7 +55,9 @@
     "nodemon": "^3.1.9",
     "nyc": "^17.1.0",
     "prettier": "^3.5.3",
-    "rimraf": "^6.0.1",
     "supertest": "^7.0.0"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
